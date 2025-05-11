@@ -1,22 +1,22 @@
 <?php
 
+use App\Http\Controllers\AI\PoemController;
+use App\Http\Controllers\AI\RoastController;
+use App\Services\ChatAI;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use OpenAI\Laravel\Facades\OpenAI;
 
 
-Route::get('/ai', function () {
+Route::get('/poem', PoemController::class)->name('poem');
 
-    $result = OpenAI::chat()->create([
-        'model' => 'gpt-3.5-turbo',
-        'messages' => [
-            ['role' => 'user', 'content' => 'Hello!'],
-        ],
-    ]);
+// Roast routes
+Route::get('/roast', [RoastController::class, 'index'])->name('roast.index');
+Route::post('/roast', [RoastController::class, 'store'])->name('roast.store');
+Route::get('/roast/{filename}', [RoastController::class, 'show'])->name('roast.show');
 
-    dd($result);
-});
+
 
 Route::get('/', function () {
     return Inertia::render('welcome');
