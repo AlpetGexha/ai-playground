@@ -79,4 +79,32 @@ class ChatAI
     {
         return $this->messages;
     }
+
+    protected function addMessage(string $message, string $role = 'user'): self
+    {
+        $this->messages[] = [
+            'role'    => $role,
+            'content' => $message
+        ];
+
+        return $this;
+    }
+
+    public function visualize(string $description, array $options = []): string
+    {
+        $this->addMessage($description);
+
+        $description = collect($this->messages)->where('role', 'user')->pluck('content')->implode(' ');
+
+        $options = array_merge([
+            'prompt' => $description,
+            'model' => 'dall-e-3'
+        ], $options);
+
+        $url = OpenAI::images()->create($options)->data[0]->url;
+
+        $this->addMessage($url, 'assistant');
+
+        return $url;
+    }
 }

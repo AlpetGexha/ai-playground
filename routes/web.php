@@ -19,6 +19,7 @@ Route::get('/roast/{filename}', [RoastController::class, 'show'])->name('roast.s
 
 Route::get('/image', [ImageController::class, 'index'])->name('image.index');
 Route::post('/image', [ImageController::class, 'store'])->name('image.store');
+Route::get('/image/gallery', [ImageController::class, 'gallery'])->name('image.gallery');
 
 
 Route::get('/', function () {

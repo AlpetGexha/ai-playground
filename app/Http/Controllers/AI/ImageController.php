@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AI;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Inertia\Inertia;
 use OpenAI\Laravel\Facades\OpenAI;
 
@@ -12,6 +13,51 @@ class ImageController extends Controller
     public function index()
     {
         return Inertia::render('Image/Index');
+    }
+
+    public function gallery()
+    {
+        $imageFiles = File::files(public_path('images'));
+        $images = [];
+
+        foreach ($imageFiles as $file) {
+            $filename = pathinfo($file, PATHINFO_FILENAME);
+            $extension = pathinfo($file, PATHINFO_EXTENSION);
+
+            // Skip if not an image file
+            if (!in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+                continue;
+            }
+
+            // Extract timestamp and prompt from filename
+            $parts = explode('-', $filename, 2);
+            $timestamp = $parts[0] ?? '';
+            $promptSlug = $parts[1] ?? '';
+
+            // Convert timestamp to readable date
+            $date = date('M j, Y g:i A', (int)$timestamp);
+
+            // Clean up the prompt slug
+            $prompt = str_replace('-', ' ', $promptSlug);
+            $prompt = ucfirst(trim($prompt));
+
+            $images[] = [
+                'id' => $filename,
+                'url' => asset('images/' . $filename . '.' . $extension),
+                'prompt' => $prompt,
+                'date' => $date,
+                'timestamp' => $timestamp,
+            ];
+        }
+
+        // Sort images by timestamp (most recent first)
+        usort($images, function($a, $b) {
+            return $b['timestamp'] - $a['timestamp'];
+        });
+
+        return Inertia::render('Image/Gallery', [
+            'images' => $images
+        ]);
     }
 
     public function store(Request $request)

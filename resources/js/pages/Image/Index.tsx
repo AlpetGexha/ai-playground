@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from 'react';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import axios from 'axios';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -53,6 +53,17 @@ export default function ImageIndex() {
               <CardDescription className="text-muted-foreground">
                 Create stunning AI-generated images from your text descriptions
               </CardDescription>
+              <div className="mt-2">
+                <Link
+                  href="/image/gallery"
+                  className="text-sm text-primary hover:underline inline-flex items-center"
+                >
+                  <svg className="mr-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                  </svg>
+                  View Image Gallery
+                </Link>
+              </div>
             </CardHeader>
 
             <CardContent>
