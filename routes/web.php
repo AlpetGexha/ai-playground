@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AI\ImageController;
 use App\Http\Controllers\AI\PoemController;
 use App\Http\Controllers\AI\RoastController;
 use App\Services\ChatAI;
@@ -16,6 +17,8 @@ Route::get('/roast', [RoastController::class, 'index'])->name('roast.index');
 Route::post('/roast', [RoastController::class, 'store'])->name('roast.store');
 Route::get('/roast/{filename}', [RoastController::class, 'show'])->name('roast.show');
 
+Route::get('/image', [ImageController::class, 'index'])->name('image.index');
+Route::post('/image', [ImageController::class, 'store'])->name('image.store');
 
 
 Route::get('/', function () {
