@@ -25,7 +25,7 @@ Route::get('/image/gallery', [ImageController::class, 'gallery'])->name('image.g
 // Spam Detecter Comments routes
 use App\Http\Controllers\AI\SpamDetecter;
 
-Route::get('/comments', [SpamDetecter::class, 'index'])->name('comments.index');
+Route::get('/comment', [SpamDetecter::class, 'index'])->name('comments.index');
 Route::post('/comment', [SpamDetecter::class, 'store'])->name('comment.store');
 
 Route::get('/', function () {

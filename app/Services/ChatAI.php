@@ -53,7 +53,7 @@ class ChatAI
 
         $options = array_merge([
             'model' => $this->model,
-            'messages' => $this->message,
+            'messages' => $this->messages,
         ], $options);
 
         // Send the messages to OpenAI API and get the response
