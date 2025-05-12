@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, Image as ImageIcon, MessageSquare, Flame } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -13,6 +13,33 @@ const mainNavItems: NavItem[] = [
         href: '/dashboard',
         icon: LayoutGrid,
     },
+
+    {
+        title: 'Image Generator',
+        href: '/image',
+        icon: ImageIcon,
+    },
+    {
+        title: 'Image Gallery',
+        href: '/image/gallery',
+        icon: ImageIcon,
+    },
+    {
+        title: 'Comment Validator',
+        href: '/comment',
+        icon: MessageSquare,
+    },
+    {
+        title: 'Poem Generator',
+        href: '/poem',
+        icon: BookOpen,
+    },
+    {
+        title: 'Roast Generator',
+        href: '/roast',
+        icon: Flame,
+    },
+
 ];
 
 const footerNavItems: NavItem[] = [
