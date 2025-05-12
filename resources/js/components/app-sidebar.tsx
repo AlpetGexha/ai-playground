@@ -28,14 +28,14 @@ const mainNavItems: NavItem[] = [
         title: 'Comment Validator',
         href: '/comment',
         icon: MessageSquare,
-    },            {
-                title: 'Poem Generator',
-                href: route('poem.index'),
-                icon: BookOpen,
-            },
+    }, {
+        title: 'Poem Generator',
+        href: route('poem.index'),
+        icon: BookOpen,
+    },
     {
         title: 'Roast Generator',
-        href: '/roast',
+        href: route('roast.index'),
         icon: Flame,
     },
 

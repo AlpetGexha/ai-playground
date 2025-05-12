@@ -24,7 +24,7 @@ export default function RoastIndex() {
     setError(null);
 
     try {
-      const response = await axios.post('/roast', { topic });
+      const response = await axios.post('/roastt', { topic });
 
       if (response.data.success) {
         setRoastFile({
