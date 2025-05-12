@@ -43,6 +43,11 @@ return [
     'openai' => [
         'key' => env('OPENAI_API_KEY'),
         'model' => env('OPENAI_MODEL', 'gpt-3.5-turbo'),
+    ],
+    
+    'inspector' => [
+        'ingestion_key' => env('INSPECTOR_INGESTION_KEY'),
+        'enabled' => env('INSPECTOR_ENABLED', false),
     ]
 
 ];
