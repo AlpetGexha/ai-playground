@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c18f11bf67895ec00f35afbda8c47fd4",
+    "content-hash": "cffd70854f265d19c180838e79de7f52",
     "packages": [
         {
             "name": "brick/math",
@@ -628,6 +628,66 @@
                 }
             ],
             "time": "2023-10-12T05:21:21+00:00"
+        },
+        {
+            "name": "genericmilk/docudoodle",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/genericmilk/docudoodle.git",
+                "reference": "6220a50f089758b6c70c867d4a72c29013f135e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/genericmilk/docudoodle/zipball/6220a50f089758b6c70c867d4a72c29013f135e0",
+                "reference": "6220a50f089758b6c70c867d4a72c29013f135e0",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^8.0|^9.0|^10.0|^11.0|^12.0",
+                "illuminate/support": "^8.0|^9.0|^10.0|^11.0|^12.0",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "php-mock/php-mock-phpunit": "^2.13",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Docudoodle\\DocudoodleServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Docudoodle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Peter Day",
+                    "email": "peterday.main@gmail.com"
+                }
+            ],
+            "description": "Generate documentation for your Laravel application using OpenAI",
+            "homepage": "https://github.com/genericmilk/docudoodle",
+            "keywords": [
+                "documentation",
+                "generator",
+                "openai",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/genericmilk/docudoodle/issues",
+                "source": "https://github.com/genericmilk/docudoodle/tree/2.1.0"
+            },
+            "time": "2025-04-25T20:44:28+00:00"
         },
         {
             "name": "graham-campbell/result-type",

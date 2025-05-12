@@ -10,6 +10,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "genericmilk/docudoodle": "^2.1",
         "inertiajs/inertia-laravel": "^2.0",
         "inspector-apm/neuron-ai": "^1.9",
         "laravel/framework": "^12.0",
