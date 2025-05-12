@@ -18,7 +18,12 @@ class SocialMediaOptimizerV2 extends Command
      *
      * @var string
      */
-    protected $signature = 'social:optimize:v2 {--monitor : Enable monitoring of agent activity}';
+    protected $signature = 'social:optimize:v2 
+                            {--monitor : Enable monitoring of agent activity}
+                            {--compact : Run in compact mode with fewer tokens}
+                            {--target=8 : Target score to achieve (1-10)}
+                            {--attempts=3 : Maximum optimization attempts}
+                            {--cache : Use cached results when possible}';
 
     /**
      * The console command description.
@@ -34,6 +39,10 @@ class SocialMediaOptimizerV2 extends Command
     {
         // Initialize agent
         $agent = SocialMediaController::make();
+        
+        // Setup cache for analytics results if caching is enabled
+        $useCache = $this->option('cache');
+        $analyticsCache = [];
 
         // Add monitoring if requested (temporarily disabled until Inspector package is properly set up)
         if ($this->option('monitor')) {
@@ -181,15 +190,30 @@ class SocialMediaOptimizerV2 extends Command
         
         // Analyze Facebook content performance
         $this->info('Analyzing Facebook content performance...');
-        try {
-            // Use the Analytics agent to analyze Facebook content
+        try {                // Use the Analytics agent to analyze Facebook content
             $analyticsAgent = new \App\Agents\AnalyticsAgent();
-            $analyticsMessage = new UserMessage("Analyze this Facebook content for engagement potential: $facebookResult");
-            $analyticsResponse = $analyticsAgent->stream($analyticsMessage);
-
-            $facebookAnalysisResult = '';
-            foreach ($analyticsResponse as $text) {
-                $facebookAnalysisResult .= $text;
+            $prompt = $this->option('compact') 
+                ? "Analyze this Facebook content (be extremely brief): $facebookResult" 
+                : "Analyze this Facebook content for engagement potential: $facebookResult";
+            
+            // Check cache first if enabled
+            $cacheKey = md5($facebookResult . '_facebook');
+            if ($useCache && isset($analyticsCache[$cacheKey])) {
+                $this->info("Using cached Facebook analytics result");
+                $facebookAnalysisResult = $analyticsCache[$cacheKey];
+            } else {
+                $analyticsMessage = new UserMessage($prompt);
+                $analyticsResponse = $analyticsAgent->stream($analyticsMessage);
+                
+                $facebookAnalysisResult = '';
+                foreach ($analyticsResponse as $text) {
+                    $facebookAnalysisResult .= $text;
+                }
+                
+                // Store in cache if enabled
+                if ($useCache) {
+                    $analyticsCache[$cacheKey] = $facebookAnalysisResult;
+                }
             }
             
             $facebookAnalytics = $extractAnalytics($facebookAnalysisResult);
@@ -200,12 +224,13 @@ class SocialMediaOptimizerV2 extends Command
             
             // Define maximum score threshold and max optimization attempts
             $maxScore = 10;
-            $targetScore = 9; // Target score to achieve
-            $maxAttempts = 3;  // Maximum number of optimization attempts
+            $targetScore = $this->option('target'); // Target score to achieve from command options
+            $maxAttempts = $this->option('attempts');  // Maximum number of optimization attempts from command options
             $attempts = 0;
             $prevScore = $facebookScore;
             $currentContent = $facebookResult;
             $currentAnalysis = $facebookAnalysisResult;
+            $isCompactMode = $this->option('compact');
             
             // Continue optimizing until we reach target score or max attempts
             while ($prevScore < $targetScore && $attempts < $maxAttempts) {
@@ -228,7 +253,10 @@ class SocialMediaOptimizerV2 extends Command
                 
                 // Re-analyze the improved content
                 $this->info("Re-analyzing improved Facebook content (Attempt #$attempts)...");
-                $analyticsMessage = new UserMessage("Analyze this Facebook content for engagement potential: $improvedContent");
+                $prompt = $isCompactMode
+                    ? "Analyze this Facebook content (be extremely brief): $improvedContent" 
+                    : "Analyze this Facebook content for engagement potential: $improvedContent";
+                $analyticsMessage = new UserMessage($prompt);
                 $analyticsResponse = $analyticsAgent->stream($analyticsMessage);
                 
                 $newAnalysisResult = '';
@@ -274,7 +302,10 @@ class SocialMediaOptimizerV2 extends Command
         try {
             // Use the Analytics agent to analyze Instagram content
             $analyticsAgent = new \App\Agents\AnalyticsAgent();
-            $analyticsMessage = new UserMessage("Analyze this Instagram content for engagement potential: $instagramResult");
+            $prompt = $this->option('compact') 
+                ? "Analyze this Instagram content (be extremely brief): $instagramResult" 
+                : "Analyze this Instagram content for engagement potential: $instagramResult";
+            $analyticsMessage = new UserMessage($prompt);
             $analyticsResponse = $analyticsAgent->stream($analyticsMessage);
 
             $instagramAnalysisResult = '';
@@ -290,8 +321,8 @@ class SocialMediaOptimizerV2 extends Command
             
             // Define maximum score threshold and max optimization attempts for Instagram
             $maxScore = 10;
-            $targetScore = 9; // Target score to achieve
-            $maxAttempts = 3;  // Maximum number of optimization attempts
+            $targetScore = $this->option('target'); // Target score to achieve from command options
+            $maxAttempts = $this->option('attempts');  // Maximum number of optimization attempts from command options
             $attempts = 0;
             $prevScore = $instagramScore;
             $currentContent = $instagramResult;
@@ -318,7 +349,10 @@ class SocialMediaOptimizerV2 extends Command
                 
                 // Re-analyze the improved content
                 $this->info("Re-analyzing improved Instagram content (Attempt #$attempts)...");
-                $analyticsMessage = new UserMessage("Analyze this Instagram content for engagement potential: $improvedContent");
+                $prompt = $this->option('compact')
+                    ? "Analyze this Instagram content (be extremely brief): $improvedContent" 
+                    : "Analyze this Instagram content for engagement potential: $improvedContent";
+                $analyticsMessage = new UserMessage($prompt);
                 $analyticsResponse = $analyticsAgent->stream($analyticsMessage);
                 
                 $newAnalysisResult = '';
@@ -364,7 +398,10 @@ class SocialMediaOptimizerV2 extends Command
         try {
             // Use the Analytics agent directly
             $analyticsAgent = new \App\Agents\AnalyticsAgent();
-            $analyticsMessage = new UserMessage("Compare and analyze the engagement potential of the following optimized content for both Facebook and Instagram platforms:\n\nFacebook: $facebookResult\n\nInstagram: $instagramResult");
+            $prompt = $this->option('compact')
+                ? "Compare Facebook and Instagram content briefly (under 50 words):\n\nFacebook: $facebookResult\n\nInstagram: $instagramResult" 
+                : "Compare and analyze the engagement potential of the following optimized content for both Facebook and Instagram platforms:\n\nFacebook: $facebookResult\n\nInstagram: $instagramResult";
+            $analyticsMessage = new UserMessage($prompt);
             $analyticsResponse = $analyticsAgent->stream($analyticsMessage);
 
             $finalAnalyticsResult = '';

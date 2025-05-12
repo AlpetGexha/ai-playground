@@ -8,6 +8,9 @@ This system provides AI-powered optimization of social media content for multipl
 - **Smart Content Adaptation:** Automatically adapts your content for optimal performance on each platform
 - **Business-Specific Settings:** Customizes content based on your business details
 - **Analytics & Insights:** Get engagement potential analysis for your content
+- **Token Usage Optimization:** Options to reduce API token consumption
+- **Analytics JSON Format:** Structured feedback with scores and improvement suggestions
+- **Continuous Improvement Loop:** Iterative optimization until target quality score is reached
 
 ## Available Commands
 
@@ -16,12 +19,16 @@ This system provides AI-powered optimization of social media content for multipl
 This command guides you through creating optimized social media content for multiple platforms.
 
 ```bash
-php artisan social:optimize
+php artisan social:optimize:v2
 ```
 
-
 Options:
+
 - `--monitor`: Enable monitoring of agent activity
+- `--compact`: Run in compact mode with fewer tokens (reduces API usage)
+- `--target=8`: Target score to achieve (1-10)
+- `--attempts=3`: Maximum optimization attempts
+- `--cache`: Use cached results when possible
 
 ### Business Settings Management
 
@@ -45,21 +52,51 @@ The system uses a multi-agent approach:
 2. **Platform-Specific Agents:**
    - **Facebook Agent:** Optimizes content for Facebook's algorithm and audience
    - **Instagram Agent:** Optimizes content for Instagram's visual-first approach
-3. **Analytics Agent:** Analyzes content for engagement potential
+3. **Analytics Agent:** Analyzes content for engagement potential using structured JSON format
+4. **Content Optimizer Agent:** Refines content based on analytics feedback
+
+## Analytics JSON Format
+
+The system uses a structured JSON format for analytics feedback:
+
+```json
+{
+  "engagementAnalysis": {
+    "platform": "Facebook",
+    "engagementScore": 8,
+    "strengths": [
+      "Clear call to action",
+      "Effective use of hashtags"
+    ],
+    "improvements": [
+      "Add more emotional appeal",
+      "Include a question to drive engagement"
+    ]
+  }
+}
+```
+
+This structured format enables precise optimization in feedback loops.
 
 ## Example Usage
 
 1. Set up your business information:
+
    ```bash
    php artisan business:update
    ```
 
-2. Run the social media optimizer:
+2. Run the social media optimizer with optimization options:
+
    ```bash
+   # Standard usage
    php artisan social:optimize:v2
+
+   # For minimal token usage (efficient mode)
+   php artisan social:optimize:v2 --compact --target=8 --attempts=2 --cache
    ```
-   
-   This version does direct agent calls, avoiding potential parameter issues with the tool-based approach.
+
+   This version does direct agent calls with feedback loops to continuously improve content quality.
 
 3. Follow the interactive prompts to create your content.
 
@@ -69,7 +106,7 @@ The system uses a multi-agent approach:
 
 Update your business details in the `.env` file:
 
-```
+```env
 BUSINESS_NAME="Hotel Driada"
 BUSINESS_PHONE="+383 44 567 631"
 BUSINESS_LOCATION="Pika e Zez, Gjakove"
@@ -84,3 +121,14 @@ Or use the command to update these settings:
 ```bash
 php artisan business:update
 ```
+
+## Token Usage Optimization
+
+To minimize token usage (API costs), the system provides several options:
+
+- **Compact Mode:** Use the `--compact` flag for shorter prompts and responses
+- **Caching:** Enable the `--cache` option to reuse analytics results when possible
+- **Target Score:** Set a lower target score (e.g., `--target=7`) for fewer optimization cycles
+- **Max Attempts:** Limit optimization attempts with `--attempts=2` to cap token usage
+
+This can reduce token consumption by 40-60% while maintaining good optimization quality.

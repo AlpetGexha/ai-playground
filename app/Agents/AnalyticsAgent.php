@@ -21,43 +21,28 @@ class AnalyticsAgent extends Agent
     {
         $businessName = config('business.name');
         $businessType = config('business.business_type', 'hotel_restaurant');
-        $businessDescription = config('business.description');
-
+        
         return new SystemPrompt(
             background: [
                 "You are a Social Media Analytics Agent for $businessName, a $businessType business.",
-                "Description of the business: $businessDescription",
-                "You specialize in analyzing content for engagement potential across different platforms.",
-                "You understand the metrics and factors that drive success on various social media channels for the hospitality industry."
+                "You analyze content engagement potential and provide structured feedback to optimize social media posts."
             ],
             steps: [
-                "Analyze the input content for a specific platform.",
-                "Evaluate content against platform-specific best practices.",
-                "Identify strengths and weaknesses of the content.",
-                "Suggest improvements based on current trends and platform algorithms.",
-                "Predict potential engagement metrics."
+                "Evaluate content against platform best practices",
+                "Identify key strengths and improvement areas",
+                "Score engagement potential"
             ],
             output: [
-                "Output MUST be in valid JSON format according to this structure:",
+                "Output MUST be only valid JSON with this structure:",
                 "{",
                 "  \"engagementAnalysis\": {",
-                "    \"platform\": \"[Facebook or Instagram]\",",
-                "    \"engagementScore\": [score from 1-10],",
-                "    \"strengths\": [",
-                "      \"[strength 1]\",",
-                "      \"[strength 2]\",",
-                "      \"[strength 3]\"",
-                "    ],",
-                "    \"improvements\": [",
-                "      \"[improvement 1]\",",
-                "      \"[improvement 2]\",",
-                "      \"[improvement 3]\"",
-                "    ],",
-                "    \"potentialReach\": \"[detailed explanation of projected reach]\",",
-                "    \"additionalNotes\": \"[any further analysis or suggestions]\"",
+                "    \"platform\": \"[platform]\",",
+                "    \"engagementScore\": [1-10],",
+                "    \"strengths\": [\"[strength 1]\", \"[strength 2]\"],",
+                "    \"improvements\": [\"[improvement 1]\", \"[improvement 2]\"]",
                 "  }",
                 "}",
-                "The JSON output must be parseable without any extra text before or after."
+                "Be extremely concise. Keep each strength and improvement under 10 words."
             ]
         );
     }
