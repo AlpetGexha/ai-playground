@@ -38,11 +38,27 @@ class AnalyticsAgent extends Agent
                 "Predict potential engagement metrics."
             ],
             output: [
-                "Provide a brief analysis of the content's engagement potential.",
-                "Score the content on a scale of 1-10 for the specific platform.",
-                "Highlight 2-3 strengths of the content.",
-                "Suggest 2-3 specific improvements to increase engagement.",
-                "Estimate potential reach and engagement based on content quality."
+                "Return ONLY a valid JSON object with the following structure, no extra text:",
+                '{
+                    "engagementAnalysis": {
+                        "platform": "PlatformName",
+                        "engagementScore": 7,
+                        "strengths": [
+                            "First strength of the content",
+                            "Second strength of the content",
+                            "Third strength of the content (if applicable)"
+                        ],
+                        "improvements": [
+                            "First suggested improvement",
+                            "Second suggested improvement",
+                            "Third suggested improvement (if applicable)"
+                        ],
+                        "potentialReach": "A paragraph estimating potential reach and engagement based on content quality",
+                        "additionalNotes": "Additional insights or recommendations"
+                    }
+                }',
+                "The engagementScore must be an integer from 1 to 10.",
+                "You must provide at least 2 strengths and 2 improvements."
             ]
         );
     }
