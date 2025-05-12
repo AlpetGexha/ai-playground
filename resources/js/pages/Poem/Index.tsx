@@ -33,7 +33,7 @@ export default function Index({ poem, prompt }: PoemProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsGenerating(true);
-    form.post(route('poem.generate'), {
+    form.post(route('poem.store'), {
       onSuccess: () => {
         setActiveTab("view");
         setIsGenerating(false);
@@ -136,7 +136,7 @@ export default function Index({ poem, prompt }: PoemProps) {
                         {poem}
                       </pre>
                     </div>
-                    
+
                     <div className="mt-8 text-center">
                       <p className="text-sm text-[#706f6c] dark:text-[#A1A09A]">
                         Generated using OpenAI's ChatGPT API

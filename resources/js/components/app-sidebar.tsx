@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, Image as ImageIcon, MessageSquare, Flame } from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, Image as ImageIcon, MessageSquare, Flame, Heart } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -38,7 +38,11 @@ const mainNavItems: NavItem[] = [
         href: route('roast.index'),
         icon: Flame,
     },
-
+    {
+        title: 'Love Letter',
+        href: route('loveletter.index'),
+        icon: Heart,
+    }
 ];
 
 const footerNavItems: NavItem[] = [

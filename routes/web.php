@@ -3,6 +3,7 @@
 use App\Http\Controllers\AI\ImageController;
 use App\Http\Controllers\AI\PoemController;
 use App\Http\Controllers\AI\RoastController;
+use App\Http\Controllers\LoveLetterController;
 use App\Services\ChatAI;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
@@ -27,9 +28,13 @@ Route::post('/image', [ImageController::class, 'store'])->name('image.store');
 Route::get('/image/gallery', [ImageController::class, 'gallery'])->name('image.gallery');
 
 // Spam Detecter Comments routes
-
 Route::get('/comment', [SpamDetecter::class, 'index'])->name('comments.index');
 Route::post('/comment', [SpamDetecter::class, 'store'])->name('comment.store');
+
+// Love letter routes
+Route::get('/love', [LoveLetterController::class, 'index'])->name('loveletter.index');
+Route::post('/love', [LoveLetterController::class, 'generate'])->name('loveletter.generate');
+
 
 Route::get('/', function () {
     return Inertia::render('welcome');

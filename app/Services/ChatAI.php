@@ -121,4 +121,28 @@ class ChatAI
 
         return $url;
     }
+
+    public function completions($message, array $options = [])
+    {
+        $this->addMessage($message);
+
+        $options = array_merge([
+            'model' => 'gpt-4o-mini',
+            'messages' => $this->messages,
+        ], $options);
+
+        // Send the messages to OpenAI API and get the response
+        $fullResponse = OpenAI::chat()->create($options);
+
+        $response = $fullResponse['choices'][0]['message']['content'] ?? null;
+
+        if ($response) {
+            $this->messages[] = [
+                'role' => 'user',
+                'content' => $response
+            ];
+        }
+
+        return $response;
+    }
 }
