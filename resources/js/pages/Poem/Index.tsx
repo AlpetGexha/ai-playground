@@ -118,20 +118,29 @@ export default function Index({ poem, prompt }: PoemProps) {
             <TabsContent value="view">
               <Card>
                 <CardHeader>
-                  <CardTitle>Your Poem</CardTitle>
-                  <CardDescription>
-                    Based on your prompt: "{prompt}"
-                  </CardDescription>
+                  <CardTitle>AI Poetry Corner</CardTitle>
                 </CardHeader>
                 <CardContent>
+                  <div className="mb-8 flex flex-col items-center">
+                    <div className="flex justify-center">
+                      <div className="w-16 border-b-2 border-[#f53003] dark:border-[#FF4433]"></div>
+                    </div>
+                    <h2 className="mt-4 text-xl font-medium text-[#f53003] dark:text-[#FF4433]">
+                      {prompt ? `A Poem About ${prompt.split(' ').slice(0, 3).join(' ')}...` : "Your Poem"}
+                    </h2>
+                  </div>
+
                   <div className="mb-6">
-                    <div className="rounded-lg bg-secondary/50 p-6">
-                      <pre className={cn(
-                        "whitespace-pre-wrap font-serif text-base leading-relaxed",
-                        "border-l-4 border-primary/80 pl-4"
-                      )}>
+                    <div className="prose max-w-none rounded-lg bg-[#FDFDFC] p-6 shadow-sm dark:bg-[#0a0a0a]">
+                      <pre className="whitespace-pre-wrap font-sans text-base leading-relaxed">
                         {poem}
                       </pre>
+                    </div>
+                    
+                    <div className="mt-8 text-center">
+                      <p className="text-sm text-[#706f6c] dark:text-[#A1A09A]">
+                        Generated using OpenAI's ChatGPT API
+                      </p>
                     </div>
                   </div>
 
