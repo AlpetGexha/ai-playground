@@ -17,10 +17,16 @@ Route::get('/roast', [RoastController::class, 'index'])->name('roast.index');
 Route::post('/roast', [RoastController::class, 'store'])->name('roast.store');
 Route::get('/roast/{filename}', [RoastController::class, 'show'])->name('roast.show');
 
+// Image generation routes
 Route::get('/image', [ImageController::class, 'index'])->name('image.index');
 Route::post('/image', [ImageController::class, 'store'])->name('image.store');
 Route::get('/image/gallery', [ImageController::class, 'gallery'])->name('image.gallery');
 
+// Spam Detecter Comments routes
+use App\Http\Controllers\AI\SpamDetecter;
+
+Route::get('/comments', [SpamDetecter::class, 'index'])->name('comments.index');
+Route::post('/comment', [SpamDetecter::class, 'store'])->name('comment.store');
 
 Route::get('/', function () {
     return Inertia::render('welcome');

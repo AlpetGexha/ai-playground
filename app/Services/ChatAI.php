@@ -8,18 +8,26 @@ class ChatAI
 {
     protected  array $messages = [];
     protected string $systemMessage = '';
+    protected string $model = 'gpt-3.5-turbo';
 
     public function __construct()
     {
-        $this->systemMessage = $this->systemPromt();
+        $this->systemMessage = $this->defaultSystemMessage();
     }
 
-    public function systemPromt(): string
+    public function model(string $model): self
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    public function defaultSystemMessage(): string
     {
         return "You are a creative and emotionally expressive AI poet. You craft original poems in various styles, tones, and formats based on the users request. Your language is vivid, evocative, and rhythmically pleasing. Always respect the chosen theme, emotion, and form, and avoid clichés unless requested.";
     }
 
-    public function getDefaultSystemMessage(): string
+    public function getSystemMessage(): string
     {
         return $this->systemMessage;
     }
@@ -31,7 +39,7 @@ class ChatAI
         return $this;
     }
 
-    public function send(string $message, bool $speech = false): ?string
+    public function send(string $message, bool $speech = false, array $options = []): ?string
     {
         if ($this->systemMessage) {
             $this->messages[] = ['role' => 'system', 'content' => $this->systemMessage];
@@ -43,11 +51,13 @@ class ChatAI
             'content' => $message
         ];
 
+        $options = array_merge([
+            'model' => $this->model,
+            'messages' => $this->message,
+        ], $options);
+
         // Send the messages to OpenAI API and get the response
-        $fullResponse = OpenAI::chat()->create([
-            'model' => 'gpt-3.5-turbo',
-            'messages' => $this->messages,
-        ]);
+        $fullResponse = OpenAI::chat()->create($options);
 
         $response = $fullResponse['choices'][0]['message']['content'] ?? null;
 
