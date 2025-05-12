@@ -10,7 +10,10 @@ use Inertia\Inertia;
 use OpenAI\Laravel\Facades\OpenAI;
 
 
-Route::get('/poem', PoemController::class)->name('poem');
+// Poem generation routes
+Route::get('/poem', [PoemController::class, 'index'])->name('poem.index');
+Route::post('/poem/generate', [PoemController::class, 'generate'])->name('poem.generate');
+Route::post('/poem/modify', [PoemController::class, 'modify'])->name('poem.modify');
 
 // Roast routes
 Route::get('/roast', [RoastController::class, 'index'])->name('roast.index');
