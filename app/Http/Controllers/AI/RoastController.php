@@ -28,9 +28,11 @@ class RoastController extends Controller
     {
         $request->validate([
             'topic' => 'required|string|min:3|max:500',
+            'voice' => 'nullable|string|in:alloy,ash,ballad,coral,echo,fable,nova,onyx,sage,shimmer',
         ]);
 
-        // TODO: Me mujt me ndru voicin e kti zotnis
+        // Get the selected voice or default to nova
+        $voice = $request->voice ?? 'nova';
 
         // Disable SSL verification in local environment to avoid certificate issues
         $chat = new ChatAI();
@@ -40,7 +42,8 @@ class RoastController extends Controller
         try {
             $mp3 = $chat->send(
                 message: $pormpt,
-                speech: true
+                speech: true,
+                options: ['voice' => $voice]
             );
 
             $filename = time() . '-' . str()->random(7) . '.mp3';

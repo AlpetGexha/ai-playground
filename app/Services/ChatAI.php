@@ -56,6 +56,10 @@ class ChatAI
             'messages' => $this->messages,
         ], $options);
 
+        // Extract voice for speech if specified
+        $voice = $options['voice'] ?? 'nova';
+        unset($options['voice']); // Remove from chat options
+
         // Send the messages to OpenAI API and get the response
         $fullResponse = OpenAI::chat()->create($options);
 
@@ -68,15 +72,15 @@ class ChatAI
             ];
         }
 
-        return $speech ? $this->speech($response) : $response;
+        return $speech ? $this->speech($response, $voice) : $response;
     }
 
-    public function speech(string $message): string
+    public function speech(string $message, string $voice = 'nova'): string
     {
         return OpenAI::audio()->speech([
             'model' => 'tts-1',
             'input' => $message,
-            'voice' => 'nova', // alloy
+            'voice' => $voice,
         ]);
     }
 

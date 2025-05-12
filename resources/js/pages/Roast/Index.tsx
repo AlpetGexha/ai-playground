@@ -5,12 +5,33 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
 
 export default function RoastIndex() {
   const [topic, setTopic] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [roastFile, setRoastFile] = useState<{ url: string; topic: string } | null>(null);
+  const [voice, setVoice] = useState('nova');
+
+  const voices = [
+    { value: 'alloy', label: 'Alloy' },
+    { value: 'ash', label: 'Ash' },
+    { value: 'ballad', label: 'Ballad' },
+    { value: 'coral', label: 'Coral' },
+    { value: 'echo', label: 'Echo' },
+    { value: 'fable', label: 'Fable' },
+    { value: 'nova', label: 'Nova' },
+    { value: 'onyx', label: 'Onyx' },
+    { value: 'sage', label: 'Sage' },
+    { value: 'shimmer', label: 'Shimmer' },
+  ];
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -24,7 +45,10 @@ export default function RoastIndex() {
     setError(null);
 
     try {
-      const response = await axios.post('/roastt', { topic });
+      const response = await axios.post('/roastt', {
+        topic,
+        voice // Include the selected voice in the request
+      });
 
       if (response.data.success) {
         setRoastFile({
@@ -67,6 +91,29 @@ export default function RoastIndex() {
                   disabled={isLoading}
                   className="w-full"
                 />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="voice" className="text-sm font-medium">
+                  Choose a voice
+                </Label>
+                <Select
+                  value={voice}
+                  onValueChange={setVoice}
+                  disabled={isLoading}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select a voice" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {voices.map((voiceOption) => (
+                      <SelectItem key={voiceOption.value} value={voiceOption.value}>
+                        {voiceOption.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground">Each voice has its own unique personality and tone.</p>
               </div>
 
               <Button
