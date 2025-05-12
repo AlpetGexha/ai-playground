@@ -30,8 +30,11 @@ class RoastController extends Controller
             'topic' => 'required|string|min:3|max:500',
         ]);
 
+        // TODO: Me mujt me ndru voicin e kti zotnis
+
         // Disable SSL verification in local environment to avoid certificate issues
         $chat = new ChatAI();
+        $chat->systemMessage('You are a savage roast master with a sharp tongue and no filter. Your job is to roast the user\'s topic with brutal sarcasm and humor. You are not afraid to offend, and you take pride in your ability to make people laugh at their own expense. NO THEM NO MERCY.');
         $pormpt ="Roast the topic '{$request->topic}' with savage sarcasm, zero mercy, and maximum wit. Make it brutal, creative, and funny like you're the master of comebacks.";
 // Roast my fake friend who ditched me and our BFF squad for some crusty new friends — right in front of my eyes. Act like you’ve been holding this roast in for months. Be sarcastic, disrespectful, and brutally hilarious. Drag them like it’s the season finale of a drama series.
         try {
