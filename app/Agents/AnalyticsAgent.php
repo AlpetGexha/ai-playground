@@ -38,27 +38,26 @@ class AnalyticsAgent extends Agent
                 "Predict potential engagement metrics."
             ],
             output: [
-                "Return ONLY a valid JSON object with the following structure, no extra text:",
-                '{
-                    "engagementAnalysis": {
-                        "platform": "PlatformName",
-                        "engagementScore": 7,
-                        "strengths": [
-                            "First strength of the content",
-                            "Second strength of the content",
-                            "Third strength of the content (if applicable)"
-                        ],
-                        "improvements": [
-                            "First suggested improvement",
-                            "Second suggested improvement",
-                            "Third suggested improvement (if applicable)"
-                        ],
-                        "potentialReach": "A paragraph estimating potential reach and engagement based on content quality",
-                        "additionalNotes": "Additional insights or recommendations"
-                    }
-                }',
-                "The engagementScore must be an integer from 1 to 10.",
-                "You must provide at least 2 strengths and 2 improvements."
+                "Output MUST be in valid JSON format according to this structure:",
+                "{",
+                "  \"engagementAnalysis\": {",
+                "    \"platform\": \"[Facebook or Instagram]\",",
+                "    \"engagementScore\": [score from 1-10],",
+                "    \"strengths\": [",
+                "      \"[strength 1]\",",
+                "      \"[strength 2]\",",
+                "      \"[strength 3]\"",
+                "    ],",
+                "    \"improvements\": [",
+                "      \"[improvement 1]\",",
+                "      \"[improvement 2]\",",
+                "      \"[improvement 3]\"",
+                "    ],",
+                "    \"potentialReach\": \"[detailed explanation of projected reach]\",",
+                "    \"additionalNotes\": \"[any further analysis or suggestions]\"",
+                "  }",
+                "}",
+                "The JSON output must be parseable without any extra text before or after."
             ]
         );
     }
