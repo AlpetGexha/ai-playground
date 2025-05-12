@@ -16,7 +16,7 @@ class SocialMediaOptimizerV22 extends Command
      *
      * @var string
      */
-    protected $signature = 'social:optimize {--monitor : Enable monitoring of agent activity} {--direct : Skip the interactive mode and directly optimize content}';
+    protected $signature = 'social:optimize-fail-2 {--monitor : Enable monitoring of agent activity} {--direct : Skip the interactive mode and directly optimize content}';
 
     /**
      * The console command description.

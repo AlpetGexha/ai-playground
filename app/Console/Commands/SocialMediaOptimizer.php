@@ -16,7 +16,7 @@ class SocialMediaOptimizer extends Command
      *
      * @var string
      */
-    protected $signature = 'social:optimize {--monitor : Enable monitoring of agent activity}';
+    protected $signature = 'social:optimize-fail-1 {--monitor : Enable monitoring of agent activity}';
 
     /**
      * The console command description.

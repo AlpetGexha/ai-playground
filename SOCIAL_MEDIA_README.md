@@ -19,11 +19,6 @@ This command guides you through creating optimized social media content for mult
 php artisan social:optimize
 ```
 
-Or use the more direct version (recommended to avoid parameter issues):
-
-```bash
-php artisan social:optimize:v2
-```
 
 Options:
 - `--monitor`: Enable monitoring of agent activity

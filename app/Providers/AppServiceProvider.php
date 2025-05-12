@@ -24,14 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Register console commands
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                SocialMediaOptimizer::class,
-                SocialMediaOptimizerV2::class,
-                UpdateBusinessSettings::class,
-                ShowBusinessSettings::class,
-            ]);
-        }
+        //
     }
 }
