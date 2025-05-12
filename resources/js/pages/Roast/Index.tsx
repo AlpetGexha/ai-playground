@@ -12,6 +12,15 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
+import {
+  Mic,
+  Flame,
+  Send,
+  Volume2,
+  AlertTriangle,
+  User,
+  Play
+} from 'lucide-react';
 
 export default function RoastIndex() {
   const [topic, setTopic] = useState('');
@@ -70,16 +79,28 @@ export default function RoastIndex() {
       <Head title="AI Roast Generator" />
 
       <div className="flex items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-background">
+        <div className="w-full max-w-xl mb-6 text-center">
+          <div className="flex justify-center mb-2">
+            <Flame className="text-red-500 mr-2" size={32} />
+            <h1 className="text-4xl font-bold">AI Roast Generator</h1>
+            <Flame className="text-red-500 ml-2" size={32} />
+          </div>
+          <p className="text-muted-foreground">Create sarcastic AI-generated roasts with voice</p>
+        </div>
         <Card className="w-full max-w-xl shadow-lg">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold text-center">AI Roast Generator</CardTitle>
+            <CardTitle className="text-2xl font-bold text-center flex items-center justify-center">
+              <Mic className="mr-2 text-red-500" size={24} />
+              AI Roast Generator
+            </CardTitle>
             <CardDescription className="text-center">Enter a topic, person or thing to create a sarcastic roast</CardDescription>
           </CardHeader>
 
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="space-y-2">
-                <Label htmlFor="topic" className="text-sm font-medium">
+                <Label htmlFor="topic" className="text-sm font-medium flex items-center">
+                  <Flame className="mr-2" size={16} />
                   What would you like to roast?
                 </Label>
                 <Input
@@ -94,7 +115,8 @@ export default function RoastIndex() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="voice" className="text-sm font-medium">
+                <Label htmlFor="voice" className="text-sm font-medium flex items-center">
+                  <Volume2 className="mr-2" size={16} />
                   Choose a voice
                 </Label>
                 <Select
@@ -131,7 +153,10 @@ export default function RoastIndex() {
                     Generating Roast...
                   </>
                 ) : (
-                  'Generate Roast 🔥'
+                  <>
+                    <Mic className="mr-2" size={16} />
+                    Generate Roast
+                  </>
                 )}
               </Button>
             </form>
@@ -146,7 +171,11 @@ export default function RoastIndex() {
           {roastFile && (
             <CardFooter className="flex flex-col">
               <div className="w-full">
-                <h3 className="text-xl font-medium mb-3">Your roast is ready! 🔥</h3>
+                <h3 className="text-xl font-medium mb-3 flex items-center justify-center">
+                  <Flame className="mr-2 text-red-500" size={20} fill="currentColor" />
+                  Your roast is ready!
+                  <Flame className="ml-2 text-red-500" size={20} fill="currentColor" />
+                </h3>
                 <Card className="bg-muted">
                   <CardContent className="pt-6">
                     <p className="mb-2">
@@ -166,9 +195,7 @@ export default function RoastIndex() {
                         asChild
                       >
                         <a href={roastFile.url} download>
-                          <svg className="mr-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                          </svg>
+                          <Play className="mr-2" size={16} />
                           Download MP3
                         </a>
                       </Button>

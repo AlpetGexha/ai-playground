@@ -76,10 +76,16 @@ export default function SpamIndex() {
 
   return (
     <>
-      <Head title="Comment Section" />
+      <Head title="AI Comment Moderator" />
       <div className="min-h-screen bg-background p-4 md:p-6 lg:p-8">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl font-bold mb-6">Article Title</h1>
+          <div className="flex justify-center mb-6">
+            <Flag className="text-orange-500 mr-2" size={28} />
+            <h1 className="text-3xl font-bold">AI Comment Moderator</h1>
+            <Flag className="text-orange-500 ml-2" size={28} />
+          </div>
+          <p className="text-center text-muted-foreground mb-8">AI-powered spam detection for your comments</p>
+          <h2 className="text-2xl font-bold mb-6">Article Title</h2>
 
           {/* Simulated Article Content */}
           <div className="prose dark:prose-invert mb-8">
@@ -108,7 +114,10 @@ export default function SpamIndex() {
             <form onSubmit={handleSubmit}>
               <CardContent className="pt-6">
                 <div className="space-y-2">
-                  <Label htmlFor="comment">Your Comment</Label>
+                  <Label htmlFor="comment" className="flex items-center">
+                    <MessageCircle className="mr-2" size={16} />
+                    Your Comment
+                  </Label>
                   <Textarea
                     id="comment"
                     placeholder="Write your comment here..."
@@ -161,7 +170,10 @@ export default function SpamIndex() {
 
           {/* Comments List */}
           <div className="space-y-4">
-            <h2 className="text-xl font-semibold mb-4">Comments ({comments.length})</h2>
+            <h2 className="text-xl font-semibold mb-4 flex items-center">
+              <MessageCircle className="mr-2 text-orange-500" size={20} />
+              Comments ({comments.length})
+            </h2>
 
             {comments.map((comment) => (
               <Card key={comment.id} className="shadow-sm">

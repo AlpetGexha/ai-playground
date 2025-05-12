@@ -20,13 +20,13 @@ class LoveLetterController extends Controller
      */
     public function generate(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'recipient' => 'required|string|max:100',
             'type' => 'required|string|in:romantic,funny,apology,flirty,dramatic',
             'traits' => 'required|string|max:500',
             'tone' => 'required|string|in:poetic,casual,shakespearean,songlyrics,cheesy',
             'length' => 'required|string|in:short,medium,long',
-            'prompt' => 'required|string|min:5|max:1000',
+            // 'prompt' => 'required|string|min:5|max:1000',
         ]);
 
         $chat = new \App\Services\ChatAI();
@@ -36,7 +36,10 @@ class LoveLetterController extends Controller
         // Write a romantic love letter to Alex. Make it poetic and sweet. Include references to how we met on a rainy day and how Alex always makes the best coffee. Keep it medium in length.
         $prompt = "Write a {$request->type} love letter to {$request->recipient}. Make it {$request->tone}. Include references to {$request->traits}. Keep it {$request->length} in length.";
         // $prompt = "Write a romantic love letter to Alex. Make it poetic and sweet. Include references to how we met on a rainy day and how Alex always makes the best coffee. Keep it medium in length.";
-        $letter = $chat->completions($prompt);
+
+        // $letter = $chat->completions($prompt);
+        $letter = $chat->send($prompt);
+
 
         return inertia('LoveLetter/Index', [
             'letter' => $letter,

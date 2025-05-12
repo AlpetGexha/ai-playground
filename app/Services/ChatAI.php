@@ -124,16 +124,14 @@ class ChatAI
 
     public function completions($message, array $options = [])
     {
-        $this->addMessage($message);
-
         $options = array_merge([
             'model' => 'gpt-4o-mini',
-            'messages' => $this->messages,
+            'prompt' => $message,
+            'temperature' => 0.4,
         ], $options);
 
         $fullResponse = OpenAI::completions()->create($options);
-
-        $response = $fullResponse['choices'][0]['message']['content'] ?? null;
+        $response = $fullResponse['choices'][0]['text'] ?? null;
 
         if ($response) {
             $this->messages[] = [

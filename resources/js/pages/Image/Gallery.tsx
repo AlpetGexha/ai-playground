@@ -34,7 +34,10 @@ export default function Gallery({ images }: GalleryProps) {
         {/* Header with navigation */}
         <div className="max-w-7xl mx-auto mb-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-foreground mb-1">AI Image Gallery</h1>
+            <h1 className="text-2xl font-bold text-foreground mb-1 flex items-center">
+              <Grid className="mr-2 text-teal-500" size={24} />
+              AI Image Gallery
+            </h1>
             <p className="text-muted-foreground">Browse all your previously generated images</p>
           </div>
 

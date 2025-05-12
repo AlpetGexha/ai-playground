@@ -14,14 +14,14 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  Heart, 
-  PenLine, 
-  Send, 
-  ArrowLeft, 
-  ClipboardCopy, 
-  User, 
-  Music, 
+import {
+  Heart,
+  PenLine,
+  Send,
+  ArrowLeft,
+  ClipboardCopy,
+  User,
+  Music,
   Clock,
   HeartHandshake
 } from 'lucide-react';

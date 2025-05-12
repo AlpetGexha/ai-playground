@@ -184,12 +184,25 @@ export default function ImageIndex() {
   return (
     <>
       <Head title="AI Image Generator" />
+      <div className="flex flex-col items-center justify-center mt-5 mb-6">
+        <div className="w-full max-w-md text-center mb-6">
+            <div className="flex justify-center mb-2">
+              <ImageIcon className="text-teal-500 mr-2" size={32} />
+              <h1 className="text-4xl font-bold">AI Image Generator</h1>
+            </div>
+            <p className="text-muted-foreground">Transform your ideas into stunning visuals with AI</p>
+          </div>
+      </div>
         <div className="flex flex-col md:flex-row min-h-screen bg-background">
         {/* Left side - Form */}
         <div className="flex flex-1 items-center justify-center p-4 md:p-6 lg:p-8">
+
           <Card className="w-full max-w-md shadow-lg border-border">
             <CardHeader className="border-b border-border">
-              <CardTitle className="text-2xl font-bold text-foreground">AI Image Generator</CardTitle>
+              <CardTitle className="text-2xl font-bold text-foreground flex items-center">
+                <ImageIcon className="mr-2 text-teal-500" size={24} />
+                AI Image Generator
+              </CardTitle>
               <CardDescription className="text-muted-foreground">
                 Create stunning AI-generated images from your text descriptions
               </CardDescription>
@@ -198,9 +211,7 @@ export default function ImageIndex() {
                   href="/image/gallery"
                   className="text-sm text-primary hover:underline inline-flex items-center"
                 >
-                  <svg className="mr-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-                  </svg>
+                  <ImageIcon className="mr-2 h-4 w-4" />
                   View Image Gallery
                 </Link>
               </div>
@@ -209,7 +220,10 @@ export default function ImageIndex() {
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="prompt">Image Description</Label>
+                  <Label htmlFor="prompt" className="flex items-center">
+                    <ImageIcon className="mr-2" size={16} />
+                    Image Description
+                  </Label>
                   <Textarea
                     id="prompt"
                     placeholder="Describe the image you want to create..."
@@ -507,7 +521,10 @@ export default function ImageIndex() {
         <div className="hidden md:flex flex-1 items-center justify-center p-4 md:p-6 lg:p-8 bg-muted/20 dark:bg-muted/10">
           <Card className="w-full h-full max-w-lg flex flex-col shadow-lg border-border">
             <CardHeader className="border-b border-border">
-              <CardTitle className="text-xl font-semibold text-foreground">Your Generated Image</CardTitle>
+              <CardTitle className="text-xl font-semibold text-foreground flex items-center">
+                <ImageIcon className="mr-2 text-teal-500" size={20} />
+                Your Generated Image
+              </CardTitle>
             </CardHeader>            <CardContent className="flex-1 flex items-center justify-center p-4">
               {isLoading ? (
                 <div className="flex flex-col items-center justify-center text-center p-6 h-full w-full">
