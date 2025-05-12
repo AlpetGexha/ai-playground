@@ -63,21 +63,101 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'prompt' => 'required|string|min:3|max:1000',
+            'prompt' => 'required|string|min:3|max:4000',
+            'model' => 'nullable|string|in:dall-e-2,dall-e-3,gpt-image-1',
+            'n' => 'nullable|integer|min:1|max:10',
+            'quality' => 'nullable|string|in:auto,standard,hd,high,medium,low',
+            'size' => 'nullable|string',
+            'style' => 'nullable|string|in:vivid,natural',
+            'response_format' => 'nullable|string|in:url,b64_json',
+            'background' => 'nullable|string|in:auto,transparent,opaque',
+            'moderation' => 'nullable|string|in:auto,low',
+            'output_format' => 'nullable|string|in:png,jpeg,webp',
+            'output_compression' => 'nullable|integer|min:0|max:100',
         ]);
 
         try {
-            // Enhance the prompt for better results
-            $prompt = "Create a detailed, high-quality image of: {$request->prompt}. Make it visually stunning with good lighting and composition.";
-
-            $response = OpenAI::images()->create([
+            // Base prompt
+            $basePrompt = $request->prompt;
+            
+            // If using dall-e-3 and no model-specific options are chosen, enhance the prompt
+            if (($request->model === 'dall-e-3' || $request->model === null) && 
+                !$request->has('background') && !$request->has('moderation') && 
+                !$request->has('output_format') && !$request->has('output_compression')) {
+                $prompt = "Create a detailed, high-quality image of: {$basePrompt}. Make it visually stunning with good lighting and composition.";
+            } else {
+                $prompt = $basePrompt;
+            }
+            
+            // Build OpenAI parameters
+            $params = [
                 'prompt' => $prompt,
-                'model' => 'dall-e-3',
-                // 'n' => 1,
-                // 'size' => '1024x1024',
-                // 'quality' => 'standard',
-                // 'style' => 'vivid'
-            ]);
+                'model' => $request->model ?? 'dall-e-3',
+            ];
+            
+            // Add optional parameters if they were provided
+            if ($request->has('n') && ($params['model'] !== 'dall-e-3' || $request->n == 1)) {
+                $params['n'] = (int)$request->n;
+            }
+            
+            if ($request->has('quality')) {
+                // Handle different quality options based on model
+                $quality = $request->quality;
+                if ($params['model'] === 'dall-e-3' && in_array($quality, ['hd', 'standard'])) {
+                    $params['quality'] = $quality;
+                } elseif ($params['model'] === 'gpt-image-1' && in_array($quality, ['high', 'medium', 'low'])) {
+                    $params['quality'] = $quality;
+                } elseif ($quality === 'auto') {
+                    $params['quality'] = $quality;
+                }
+            }
+            
+            if ($request->has('size')) {
+                $size = $request->size;
+                // Validate size based on model
+                $validSizes = [
+                    'dall-e-2' => ['256x256', '512x512', '1024x1024'],
+                    'dall-e-3' => ['1024x1024', '1792x1024', '1024x1792'],
+                    'gpt-image-1' => ['1024x1024', '1536x1024', '1024x1536', 'auto']
+                ];
+                
+                $model = $params['model'];
+                if (isset($validSizes[$model]) && in_array($size, $validSizes[$model])) {
+                    $params['size'] = $size;
+                } elseif ($size === 'auto' && $model === 'gpt-image-1') {
+                    $params['size'] = 'auto';
+                }
+            }
+            
+            if ($request->has('style') && $params['model'] === 'dall-e-3') {
+                $params['style'] = $request->style;
+            }
+            
+            if ($request->has('response_format') && in_array($params['model'], ['dall-e-2', 'dall-e-3'])) {
+                $params['response_format'] = $request->response_format;
+            }
+            
+            // gpt-image-1 specific options
+            if ($params['model'] === 'gpt-image-1') {
+                if ($request->has('background')) {
+                    $params['background'] = $request->background;
+                }
+                
+                if ($request->has('moderation')) {
+                    $params['moderation'] = $request->moderation;
+                }
+                
+                if ($request->has('output_format')) {
+                    $params['output_format'] = $request->output_format;
+                }
+                
+                if ($request->has('output_compression') && 
+                    in_array($request->output_format ?? 'png', ['webp', 'jpeg'])) {
+                    $params['output_compression'] = (int)$request->output_compression;
+                }
+            }
+            
+            $response = OpenAI::images()->create($params);
 
             $url = $response->data[0]->url;
 
