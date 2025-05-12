@@ -131,8 +131,7 @@ class ChatAI
             'messages' => $this->messages,
         ], $options);
 
-        // Send the messages to OpenAI API and get the response
-        $fullResponse = OpenAI::chat()->create($options);
+        $fullResponse = OpenAI::completions()->create($options);
 
         $response = $fullResponse['choices'][0]['message']['content'] ?? null;
 

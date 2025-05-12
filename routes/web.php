@@ -3,7 +3,7 @@
 use App\Http\Controllers\AI\ImageController;
 use App\Http\Controllers\AI\PoemController;
 use App\Http\Controllers\AI\RoastController;
-use App\Http\Controllers\LoveLetterController;
+use App\Http\Controllers\AI\LoveLetterController;
 use App\Services\ChatAI;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
