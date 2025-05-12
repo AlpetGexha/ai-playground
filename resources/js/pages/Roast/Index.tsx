@@ -78,7 +78,7 @@ export default function RoastIndex() {
     <>
       <Head title="AI Roast Generator" />
 
-      <div className="flex items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-background">
+      <div className="flex items-center flex-wrap justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-background">
         <div className="w-full max-w-xl mb-6 text-center">
           <div className="flex justify-center mb-2">
             <Flame className="text-red-500 mr-2" size={32} />
