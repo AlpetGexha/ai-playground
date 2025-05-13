@@ -23,7 +23,7 @@ class TodosController extends Controller
             'title' => 'required|string|max:255',
         ]);
 
-        $todo = Todo::todos()->create([
+        $todo = Todo::create([
             'title' => $request->input('title'),
         ]);
 
