@@ -37,7 +37,7 @@ class ChatController extends Controller
                 Http::withHeaders([
                     'Authorization' => 'Bearer ' . config('services.user.token'),
                     'Accept' => 'application/json'
-                ])->post('http://laravel-prismphp-tools-example.test/api/todos', [
+                ])->post(route('todos.store'), [
                     'title' => $todo,
                 ]);
 
@@ -58,20 +58,7 @@ class ChatController extends Controller
         ]);
     }
 
-    /**
-     * Get all todos
-     */
-    public function todos()
-    {
-        $todos = Http::withHeaders([
-            'Authorization' => 'Bearer ' . config('services.user.token'),
-            'Accept' => 'application/json'
-        ])->get('http://laravel-prismphp-tools-example.test/api/todos')->json();
-
-        return response()->json([
-            'todos' => $todos,
-        ]);
-    }
+    // This method is replaced by getTodos()
 
     /**
      * Toggle todo completion status
@@ -81,7 +68,7 @@ class ChatController extends Controller
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . config('services.user.token'),
             'Accept' => 'application/json'
-        ])->post("http://laravel-prismphp-tools-example.test/api/todos/{$id}/toggle");
+        ])->post(route('todos.toggle', ['id' => $id]));
 
         return response()->json([
             'success' => $response->successful(),
@@ -103,7 +90,7 @@ class ChatController extends Controller
                 Http::withHeaders([
                     'Authorization' => 'Bearer ' . config('services.user.token'),
                     'Accept' => 'application/json'
-                ])->post('http://laravel-prismphp-tools-example.test/api/todos', [
+                ])->post(route('todos.store'), [
                     'title' => $todo,
                 ]);
 
@@ -143,45 +130,10 @@ class ChatController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Bearer ' . config('services.user.token'),
-        ])->get('http://laravel-prismphp-tools-example.test/api/todos');
+        ])->get(route('todos.index'));
 
         return response()->json([
             'todos' => $response->json('todos') ?? [],
         ]);
     }
-
-    /**
-     * Toggle todo completion status
-     */
-    // public function toggleTodo($id)
-    // {
-    //     // First get the current todo to know its completion status
-    //     $todos = Http::withHeaders([
-    //         'Accept' => 'application/json',
-    //         'Authorization' => 'Bearer ' . config('services.user.token'),
-    //     ])->get('http://laravel-prismphp-tools-example.test/api/todos')->json('todos') ?? [];
-
-    //     // Find the todo with the given ID
-    //     $todo = collect($todos)->firstWhere('id', (int) $id);
-
-    //     if (!$todo) {
-    //         return response()->json(['error' => 'Todo not found'], 404);
-    //     }
-
-    //     // Toggle the completed status
-    //     $completed = !$todo['completed'];
-
-    //     // Update the todo
-    //     $response = Http::withHeaders([
-    //         'Accept' => 'application/json',
-    //         'Authorization' => 'Bearer ' . config('services.user.token'),
-    //     ])->put('http://laravel-prismphp-tools-example.test/api/todos/' . $id, [
-    //         'completed' => $completed,
-    //     ]);
-
-    //     // Return the updated todo
-    //     return response()->json([
-    //         'todo' => $response->json('todo'),
-    //     ]);
-    // }
 }

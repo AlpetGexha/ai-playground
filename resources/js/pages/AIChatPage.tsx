@@ -38,7 +38,7 @@ export default function AIChatPage() {
 
   const fetchTodos = async () => {
     try {
-      const response = await axios.get(route('ai.todos'));
+      const response = await axios.get(route('todos'));
       setTodos(response.data.todos);
     } catch (error) {
       console.error('Error fetching todos:', error);
@@ -47,7 +47,7 @@ export default function AIChatPage() {
 
   const toggleTodo = async (id: number) => {
     try {
-      await axios.post(route('ai.todos.toggle', { id }));
+      await axios.post(route('todos.toggle', { id }));
       fetchTodos();
     } catch (error) {
       console.error('Error toggling todo:', error);
@@ -78,7 +78,7 @@ export default function AIChatPage() {
     }
 
     // Create a new event source
-    const eventSource = new EventSource(route('ai.chat.stream') + `?message=${encodeURIComponent(prompt)}`);
+    const eventSource = new EventSource(route('chat.stream') + `?message=${encodeURIComponent(prompt)}`);
     eventSourceRef.current = eventSource;
 
     let fullResponse = '';

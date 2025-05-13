@@ -10,7 +10,7 @@ class TodosController extends Controller
 {
     public function index()
     {
-        $todos = auth()->user()->todos()->get();
+        $todos = Todo::get();
 
         return response()->json([
             'todos' => $todos,
@@ -23,7 +23,7 @@ class TodosController extends Controller
             'title' => 'required|string|max:255',
         ]);
 
-        $todo = auth()->user()->todos()->create([
+        $todo = Todo::todos()->create([
             'title' => $request->input('title'),
         ]);
 
