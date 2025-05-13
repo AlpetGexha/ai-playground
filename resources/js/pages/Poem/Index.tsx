@@ -84,7 +84,7 @@ export default function Index({ poem, prompt }: PoemProps) {
           <p className="text-center text-muted-foreground">Create beautiful poems with AI assistance</p>
         </div>
 
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto mt-5">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="create" className="flex items-center justify-center">
@@ -130,7 +130,7 @@ export default function Index({ poem, prompt }: PoemProps) {
                       </div>
                     </div>
                   </CardContent>
-                  <CardFooter className="flex justify-between">
+                  <CardFooter className="flex justify-between mt-5">
                     <Button variant="outline" type="button" asChild className="flex items-center">
                       <Link href="/dashboard">
                         <ArrowLeft className="mr-2" size={16} />
