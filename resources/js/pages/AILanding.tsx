@@ -1,21 +1,21 @@
 import { useState } from 'react';
 import { Head, Link } from '@inertiajs/react';
-import { 
-    Bot, 
-    Sparkles, 
-    MessageSquare, 
-    Image as ImageIcon, 
-    PenTool, 
-    Heart, 
-    Flame, 
-    TerminalSquare, 
-    MessageCircleQuestion, 
-    Cpu, 
-    ArrowRight, 
-    Rows3, 
-    BookOpen, 
-    Instagram, 
-    Facebook, 
+import {
+    Bot,
+    Sparkles,
+    MessageSquare,
+    Image as ImageIcon,
+    PenTool,
+    Heart,
+    Flame,
+    TerminalSquare,
+    MessageCircleQuestion,
+    Cpu,
+    ArrowRight,
+    Rows3,
+    BookOpen,
+    Instagram,
+    Facebook,
     Youtube
 } from 'lucide-react';
 
@@ -26,7 +26,7 @@ import { Separator } from '@/components/ui/separator';
 export default function AILanding() {
     const [activeFeature, setActiveFeature] = useState<string | null>(null);
 
-    const handleCardHover = (feature: string) => {
+    const handleCardHover = (feature: string | null) => {
         setActiveFeature(feature);
     };
 
@@ -48,8 +48,8 @@ export default function AILanding() {
                     {/* Floating sparkles effect */}
                     <div className="absolute inset-0 -z-5">
                         {[...Array(20)].map((_, i) => (
-                            <div 
-                                key={i} 
+                            <div
+                                key={i}
                                 className="absolute animate-pulse text-purple-300 dark:text-purple-600"
                                 style={{
                                     top: `${Math.random() * 100}%`,
@@ -108,7 +108,7 @@ export default function AILanding() {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {/* Chat AI */}
-                            <Card 
+                            <Card
                                 className={`overflow-hidden transition-all duration-300 hover:shadow-md hover:shadow-purple-200/50 dark:hover:shadow-purple-900/30 ${activeFeature === 'chat' ? 'border-purple-300 dark:border-purple-800' : ''}`}
                                 onMouseEnter={() => handleCardHover('chat')}
                                 onMouseLeave={() => handleCardHover(null)}
@@ -135,7 +135,7 @@ export default function AILanding() {
                             </Card>
 
                             {/* Image Generator */}
-                            <Card 
+                            <Card
                                 className={`overflow-hidden transition-all duration-300 hover:shadow-md hover:shadow-blue-200/50 dark:hover:shadow-blue-900/30 ${activeFeature === 'image' ? 'border-blue-300 dark:border-blue-800' : ''}`}
                                 onMouseEnter={() => handleCardHover('image')}
                                 onMouseLeave={() => handleCardHover(null)}
@@ -162,7 +162,7 @@ export default function AILanding() {
                             </Card>
 
                             {/* Poem Generator */}
-                            <Card 
+                            <Card
                                 className={`overflow-hidden transition-all duration-300 hover:shadow-md hover:shadow-pink-200/50 dark:hover:shadow-pink-900/30 ${activeFeature === 'poem' ? 'border-pink-300 dark:border-pink-800' : ''}`}
                                 onMouseEnter={() => handleCardHover('poem')}
                                 onMouseLeave={() => handleCardHover(null)}
@@ -189,7 +189,7 @@ export default function AILanding() {
                             </Card>
 
                             {/* Roast Generator */}
-                            <Card 
+                            <Card
                                 className={`overflow-hidden transition-all duration-300 hover:shadow-md hover:shadow-orange-200/50 dark:hover:shadow-orange-900/30 ${activeFeature === 'roast' ? 'border-orange-300 dark:border-orange-800' : ''}`}
                                 onMouseEnter={() => handleCardHover('roast')}
                                 onMouseLeave={() => handleCardHover(null)}
@@ -216,7 +216,7 @@ export default function AILanding() {
                             </Card>
 
                             {/* Love Letter */}
-                            <Card 
+                            <Card
                                 className={`overflow-hidden transition-all duration-300 hover:shadow-md hover:shadow-red-200/50 dark:hover:shadow-red-900/30 ${activeFeature === 'love' ? 'border-red-300 dark:border-red-800' : ''}`}
                                 onMouseEnter={() => handleCardHover('love')}
                                 onMouseLeave={() => handleCardHover(null)}
@@ -243,7 +243,7 @@ export default function AILanding() {
                             </Card>
 
                             {/* Comment Validator */}
-                            <Card 
+                            <Card
                                 className={`overflow-hidden transition-all duration-300 hover:shadow-md hover:shadow-green-200/50 dark:hover:shadow-green-900/30 ${activeFeature === 'comment' ? 'border-green-300 dark:border-green-800' : ''}`}
                                 onMouseEnter={() => handleCardHover('comment')}
                                 onMouseLeave={() => handleCardHover(null)}
@@ -431,7 +431,7 @@ export default function AILanding() {
                         </div>
                         <Separator className="my-8" />
                         <div className="text-center text-[#66635c] dark:text-[#A1A09A] text-sm">
-                            © {new Date().getFullYear()} AI Playground. All rights reserved.
+                            © {new Date().getFullYear()} AI Playground. All rights reserved. by Alpet Gexha
                         </div>
                     </div>
                 </footer>
