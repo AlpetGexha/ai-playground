@@ -42,7 +42,12 @@ const mainNavItems: NavItem[] = [
         title: 'Love Letter',
         href: route('loveletter.index'),
         icon: Heart,
-    }
+    },
+    {
+        title: 'AI Chat',
+        href: '/chat',
+        icon: MessageSquare,
+    },
 ];
 
 const footerNavItems: NavItem[] = [
