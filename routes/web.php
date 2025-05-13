@@ -47,5 +47,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 
+// AI Chat routes
+
+Route::get('/chat', [App\Http\Controllers\AI\ChatController::class, 'index'])->name('chat');
+Route::post('/chat', [App\Http\Controllers\AI\ChatController::class, 'processChat'])->name('chat.process');
+Route::get('/chat/stream', [App\Http\Controllers\AI\ChatController::class, 'streamChat'])->name('chat.stream');
+Route::get('/todos', [App\Http\Controllers\AI\ChatController::class, 'getTodos'])->name('todos');
+Route::post('/todos/{id}/toggle', [App\Http\Controllers\AI\ChatController::class, 'toggleTodo'])->name('todos.toggle');
+
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
