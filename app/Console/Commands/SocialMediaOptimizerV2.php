@@ -12,7 +12,7 @@ class SocialMediaOptimizerV2 extends Command
      *
      * @var string
      */
-    protected $signature = 'social:optimize:v2 
+    protected $signature = 'agent:social-optimize
                             {--monitor : Enable monitoring of agent activity}
                             {--compact : Run in compact mode with fewer tokens}
                             {--target=8 : Target score to achieve (1-10)}
@@ -33,7 +33,7 @@ class SocialMediaOptimizerV2 extends Command
      * The optimization service.
      */
     protected $service;
-    
+
     /**
      * Create a new command instance.
      */
@@ -55,7 +55,7 @@ class SocialMediaOptimizerV2 extends Command
             'target' => $this->option('target'),
             'attempts' => $this->option('attempts')
         ]);
-        
+
         // Add monitoring if requested
         if ($this->option('monitor')) {
             $this->info("Monitoring enabled for agent activity");
@@ -105,11 +105,11 @@ class SocialMediaOptimizerV2 extends Command
 
         // Use the service to optimize content for all platforms
         $this->info('Optimizing content for all platforms...');
-        
+
         try {
             // Get optimized content from service
             $results = $this->service->optimizeContent($content, $businessType, $contentType);
-            
+
             // Display Facebook results
             $this->info('Facebook Optimized Content:');
             $this->line($results['facebook']['content']);
@@ -119,7 +119,7 @@ class SocialMediaOptimizerV2 extends Command
                 $this->info("Score improved from {$results['facebook']['initialScore']} to {$results['facebook']['score']} in {$results['facebook']['attempts']} attempts.");
             }
             $this->newLine();
-            
+
             // Display Instagram results
             $this->info('Instagram Optimized Content:');
             $this->line($results['instagram']['content']);
@@ -129,17 +129,17 @@ class SocialMediaOptimizerV2 extends Command
                 $this->info("Score improved from {$results['instagram']['initialScore']} to {$results['instagram']['score']} in {$results['instagram']['attempts']} attempts.");
             }
             $this->newLine();
-            
+
             // Display comparison
             $this->info('Platform Comparison:');
             $this->line($results['comparison']);
             $this->newLine();
-            
-            // Save results to a file if requested 
+
+            // Save results to a file if requested
             if ($this->option('save')) {
                 try {
                     $filename = $this->option('filename');
-                    
+
                     // Check if markdown format is requested
                     if ($this->option('markdown')) {
                         $filePath = $this->service->saveResultsAsMarkdown($results, $filename);
@@ -154,7 +154,7 @@ class SocialMediaOptimizerV2 extends Command
                     // Continue execution even if saving fails
                 }
             }
-            
+
         } catch (\Exception $e) {
             $this->error('Error optimizing content: ' . $e->getMessage());
             return 1;

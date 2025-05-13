@@ -16,11 +16,11 @@ class agent extends Command
      *
      * @var string
      */
-    protected $signature = 'agent';
+    protected $signature = 'agent:youtube';
 
     /**
      * The console command description.
-     *
+     *te
      * @var string
      */
     protected $description = 'Command description';

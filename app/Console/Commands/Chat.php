@@ -11,7 +11,7 @@ class Chat extends Command
      *
      * @var string
      */
-    protected $signature = 'chat';
+    protected $signature = 'agent:r-chat';
 
     /**
      * The console command description.
