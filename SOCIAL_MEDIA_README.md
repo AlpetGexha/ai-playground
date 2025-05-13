@@ -29,6 +29,7 @@ Options:
 - `--target=8`: Target score to achieve (1-10)
 - `--attempts=3`: Maximum optimization attempts
 - `--cache`: Use cached results when possible
+- `--save --markdown`: Output in Markdown format
 
 ### Business Settings Management
 
