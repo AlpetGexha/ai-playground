@@ -46,7 +46,7 @@ class ChatController extends Controller
 
         // Use Prism to generate a response
         $response = Prism::text()
-            ->using(Provider::OpenAI, 'gpt-4')
+            ->using(Provider::OpenAI, 'gpt-3.5-turbo')
             ->withMaxSteps(2)
             ->withPrompt($prompt)
             ->withTools([$todoTool])
@@ -100,7 +100,7 @@ class ChatController extends Controller
         // Stream the response
         return response()->stream(function () use ($prompt, $todoTool) {
             $stream = Prism::text()
-                ->using(Provider::OpenAI, 'gpt-4')
+                ->using(Provider::OpenAI, 'gpt-3.5-turbo')
                 ->withMaxSteps(2)
                 ->withPrompt($prompt)
                 ->withTools([$todoTool])
