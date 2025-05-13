@@ -54,7 +54,7 @@ export default function RoastIndex() {
     setError(null);
 
     try {
-      const response = await axios.post('/roastt', {
+      const response = await axios.post(route('roast.store'), {
         topic,
         voice // Include the selected voice in the request
       });

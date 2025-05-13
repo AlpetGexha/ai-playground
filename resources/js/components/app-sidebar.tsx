@@ -1,10 +1,10 @@
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarGroup, SidebarGroupLabel } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
-import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, Image as ImageIcon, MessageSquare, Flame, Heart } from 'lucide-react';
+import { Link, usePage } from '@inertiajs/react';
+import { BookOpen, Folder, LayoutGrid, Image as ImageIcon, MessageSquare, Flame, Heart, Youtube, Share2 } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -28,7 +28,8 @@ const mainNavItems: NavItem[] = [
         title: 'Comment Validator',
         href: '/comment',
         icon: MessageSquare,
-    }, {
+    }, 
+    {
         title: 'Poem Generator',
         href: route('poem.index'),
         icon: BookOpen,
@@ -50,6 +51,25 @@ const mainNavItems: NavItem[] = [
     },
 ];
 
+// Agent command tools
+const agentNavItems: NavItem[] = [
+    {
+        title: 'YouTube Agent',
+        href: route('youtube.agent'),
+        icon: Youtube,
+    },
+    {
+        title: 'Roasted Agent',
+        href: route('roasted.agent'),
+        icon: Flame,
+    },
+    {
+        title: 'Social Media Optimizer',
+        href: route('social.optimizer'),
+        icon: Share2,
+    },
+];
+
 const footerNavItems: NavItem[] = [
     // {
     //     title: 'Repository',
@@ -64,6 +84,8 @@ const footerNavItems: NavItem[] = [
 ];
 
 export function AppSidebar() {
+    const page = usePage();
+    
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -80,6 +102,25 @@ export function AppSidebar() {
 
             <SidebarContent>
                 <NavMain items={mainNavItems} />
+                <SidebarGroup className="px-2 py-0 mt-4">
+                    <SidebarGroupLabel>Agent Commands</SidebarGroupLabel>
+                    <SidebarMenu>
+                        {agentNavItems.map((item) => (
+                            <SidebarMenuItem key={item.title}>
+                                <SidebarMenuButton  
+                                    asChild 
+                                    isActive={page.url === item.href}
+                                    tooltip={{ children: item.title }}
+                                >
+                                    <Link href={item.href} prefetch>
+                                        {item.icon && <item.icon />}
+                                        <span>{item.title}</span>
+                                    </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                        ))}
+                    </SidebarMenu>
+                </SidebarGroup>
             </SidebarContent>
 
             <SidebarFooter>

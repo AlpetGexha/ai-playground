@@ -35,6 +35,18 @@ Route::post('/comment', [SpamDetecter::class, 'store'])->name('comment.store');
 Route::get('/loveletter', [LoveLetterController::class, 'index'])->name('loveletter.index');
 Route::post('/loveletter', [LoveLetterController::class, 'generate'])->name('loveletter.generate');
 
+// Agent tool pages
+Route::get('/youtube-agent', function () {
+    return Inertia::render('YoutubeAgent');
+})->name('youtube.agent');
+
+Route::get('/roasted-agent', function () {
+    return Inertia::render('RoastedAgent');
+})->name('roasted.agent');
+
+Route::get('/social-media-optimizer', function () {
+    return Inertia::render('SocialMediaOptimizer');
+})->name('social.optimizer');
 
 Route::get('/', function () {
     return Inertia::render('AILanding');
