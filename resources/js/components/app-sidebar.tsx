@@ -28,7 +28,7 @@ const mainNavItems: NavItem[] = [
         title: 'Comment Validator',
         href: '/comment',
         icon: MessageSquare,
-    }, 
+    },
     {
         title: 'Poem Generator',
         href: route('poem.index'),
@@ -85,7 +85,7 @@ const footerNavItems: NavItem[] = [
 
 export function AppSidebar() {
     const page = usePage();
-    
+
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -107,8 +107,8 @@ export function AppSidebar() {
                     <SidebarMenu>
                         {agentNavItems.map((item) => (
                             <SidebarMenuItem key={item.title}>
-                                <SidebarMenuButton  
-                                    asChild 
+                                <SidebarMenuButton
+                                    asChild
                                     isActive={page.url === item.href}
                                     tooltip={{ children: item.title }}
                                 >

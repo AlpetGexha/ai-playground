@@ -7,7 +7,7 @@ import { Separator } from '@/components/ui/separator';
 
 export default function SocialMediaOptimizer() {
     const command = 'php artisan agent:social-optimize';
-    
+
     const copyToClipboard = () => {
         navigator.clipboard.writeText(command);
     };
@@ -56,7 +56,7 @@ export default function SocialMediaOptimizer() {
                         </p>
                     </CardFooter>
                 </Card>
-                
+
                 <div className="space-y-6">
                     <h2 className="text-2xl font-semibold tracking-tight">Supported Platforms</h2>
                     <div className="grid gap-6 md:grid-cols-2">

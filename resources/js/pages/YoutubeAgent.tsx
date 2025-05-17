@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 
 export default function YoutubeAgent() {
     const command = 'php artisan agent:youtube';
-    
+
     const copyToClipboard = () => {
         navigator.clipboard.writeText(command);
     };
@@ -55,7 +55,7 @@ export default function YoutubeAgent() {
                         </p>
                     </CardFooter>
                 </Card>
-                
+
                 <div className="grid gap-6 md:grid-cols-2">
                     <Card>
                         <CardHeader>
