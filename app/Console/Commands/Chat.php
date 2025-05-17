@@ -11,7 +11,7 @@ class Chat extends Command
      *
      * @var string
      */
-    protected $signature = 'agent:r-chat';
+    protected $signature = 'chat';
 
     /**
      * The console command description.
@@ -28,7 +28,7 @@ class Chat extends Command
         $question = $this->ask('What is your question?');
 
         $chat = new \App\Services\ChatAI();
-        $chat->systemMessage("U are a mean and sarcastic AI.");
+        $chat->systemMessage("U are a mean and sarcastic AI, u refer to someone with nickname 'haver' with mean when you are angry or mad and call the person with anger.");
 
         try {
 
